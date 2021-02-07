@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>Stocks Portfolio</title>
+
+  <style>
+
+  h1 {
+    font-size: 80px;
+  }
+
+  body {
+      background: lightblue;
+
+      text-align: center;
+
+      margin-top: 80px;
+        
+        }
+  
+
+  .droptarget {
+            float: center;
+            display: inline-block;
+            width: 200px;
+            height: 200px;
+            margin: 15px;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+            background: white;
+        }
+
+  .flex-container {
+      display: flex;
+      justify-content: center;
+    }   
+
+  .refreshRoi {
+    border: 1px solid #aaaaaa;
+    background: white;
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+
+
+  }
+
+    </style>
+
+ </head>
+
+
+ <body>
+
+    <h1>Top Picks</h1>
+
+    <h3>Create your portfolio and see who it's been performing</h3>
+
+      <div class = "flex-container">
+            <div id="stock-list" class="droptarget">
+  
+                <img id="aapl" src="apple-logo.png" draggable="true" width="50" height="50" class="stock">
+                <img id="fb" src="fb-logo.png" draggable="true" width="50" height="50">
+                <img id="amzn" src="amzn-logo.png" draggable="true" width="50" height="50">
+                <img id="tsla" src="tsla-logo.png" draggable="true" width="50" height="50">
+                <img id="wix" src="wix-logo.png" draggable="true" width="50" height="50">
+                <img id="gme" src="gme-logo.png" draggable="true" width="50" height="50">
+                <img id="twtr" src="twtr-logo.png" draggable="true" width="50" height="50">
+                <img id="goog" src="goog-logo.png" draggable="true" width="50" height="50">
+                  <img id="msft" src="msft-logo.png" draggable="true" width="50" height="50">
+
+            </div>
+             <div id="stock-portfolio" class="droptarget"></div>
+      </div>
+
+    <p id="demo"></p>
+
+    <p id="result"> <b>ROI:</b> </p>
+
+    <script>
+        /* Events fired on the drag target */
+
+        document.addEventListener("dragstart", function (event) {
+            // The dataTransfer.setData() method sets the data type and the value of the dragged data
+            event.dataTransfer.setData("stockId", event.target.id);
+
+            // Output some text when starting to drag the p element
+            document.getElementById("demo").innerHTML = "Started to drag the p element.";
+
+            // Change the opacity of the draggable element
+            event.target.style.opacity = "0.4";
+        });
+
+        // While dragging the p element, change the color of the output text
+        document.addEventListener("drag", function (event) {
+
+            document.getElementById("demo").style.color = "green";
+        });
+
+        // Output some text when finished dragging the p element and reset the opacity
+        document.addEventListener("dragend", function (event) {
+            document.getElementById("demo").innerHTML = "Finished adding the stock to your portfolio.";
+            event.target.style.opacity = "1";
+        });
+
+        /* Events fired on the drop target */
+
+        // When the draggable p element enters the droptarget, change the DIVS's border style
+        document.addEventListener("dragenter", function (event) {
+            if (event.target.className == "droptarget") {
+                event.target.style.border = "3px dotted red";
+            }
+        });
+
+
+        // By default, data/elements cannot be dropped in other elements. To allow a drop, we must prevent the default handling of the element
+        document.addEventListener("dragover", function (event) {
+            event.preventDefault();
+        });
+
+        // When the draggable p element leaves the droptarget, reset the DIVS's border style
+        document.addEventListener("dragleave", function (event) {
+            if (event.target.className == "droptarget") {
+                event.target.style.border = "";
+            }
+        });
+
+        /* On drop - Prevent the browser default handling of the data (default is open as link on drop)
+           Reset the color of the output text and DIV's border color
+           Get the dragged data with the dataTransfer.getData() method
+           The dragged data is the id of the dragged element ("drag1")
+           Append the dragged element into the drop element
+        */
+        document.addEventListener("drop", function (event) {
+            event.preventDefault();
+            if (event.target.className == "droptarget") {
+                document.getElementById("demo").style.color = "";
+                event.target.style.border = "";
+                var data = event.dataTransfer.getData("stockId");
+                event.target.appendChild(document.getElementById(data));
+            }
+        });
+
+
+      // When the draggable stock enters the droptarget, calculate ROI
+
+ 
+
+
+const stocks = {
+  "msft": 1.1,
+  "twtr": 2,
+  "fb": 3,
+  "aapl": 3.5,
+  "amzn": -2.8,
+  "tsla": 8,
+  "wix": 2,
+  "gme": 10,
+  "goog": 3
+
+};
+
+const refreshRoi = function() {
+   document.getElementById("result").innerHTML = "Result: ";
+   document.getElementById("result").innerHTML += portfolioRoi + "%";
+};
+
+ let portfolioRoi = 0;
+
+ document.getElementById("stock-portfolio").addEventListener("drop", function (event) {
+
+    event.preventDefault();
+    portfolioRoi = portfolioRoi + stocks[event.dataTransfer.getData("stockId")];
+    portfolioRoi = Math.round(portfolioRoi);
+    refreshRoi();
+  });
+
+  document.getElementById("stock-list").addEventListener("drop", function (event) {
+    event.preventDefault();
+    portfolioRoi = portfolioRoi - stocks[event.dataTransfer.getData("stockId")];
+    portfolioRoi = Math.round(portfolioRoi);
+    refreshRoi();
+  });   
+
+
+    </script>
+
+</body>
+
+<script src="Hackathon.js" charset="utf-8"></script>
+</html>
+
+
