@@ -45,3 +45,31 @@ if (Your_age * 2.54) >= 145:
   print("enjoy the ride")
 else:
   print("go home!")
+
+
+#### daily challange ####
+
+print("Choose a password")
+x = input()
+if len(x) == 10:
+  print("good job")
+elif len(x) > 10:
+  print("to long")
+else:
+  print("to short")
+
+print(x[0])
+print(x[-1])
+
+for i in x:
+  y = []
+  y.append(i)
+  print(y)
+
+import random
+def mysuffle():
+  random 
+
+random.shuffle(x,mysuffle)
+print(x)
+
