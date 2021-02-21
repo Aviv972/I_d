@@ -21,14 +21,14 @@
   
 
   .droptarget {
-            float: center;
-            display: inline-block;
-            width: 200px;
-            height: 200px;
-            margin: 15px;
-            padding: 10px;
-            border: 1px solid #aaaaaa;
-            background: white;
+    float: center;
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    margin: 15px;
+    padding: 10px;
+    border: 1px solid #aaaaaa;
+    background: white;
         }
 
   .flex-container {
@@ -71,7 +71,8 @@
                   <img id="msft" src="msft-logo.png" draggable="true" width="50" height="50">
 
             </div>
-             <div id="stock-portfolio" class="droptarget"></div>
+
+      <div id="stock-portfolio" class="droptarget"></div>
       </div>
 
     <p id="demo"></p>
@@ -86,7 +87,7 @@
             event.dataTransfer.setData("stockId", event.target.id);
 
             // Output some text when starting to drag the p element
-            document.getElementById("demo").innerHTML = "Started to drag the p element.";
+            document.getElementById("demo").innerHTML = "Started to drag the stock.";
 
             // Change the opacity of the draggable element
             event.target.style.opacity = "0.4";
