@@ -57,4 +57,24 @@ class Song:
 stairway= Song(["There’s a lady who's sure","all that glitters is gold", "and she’s buying a stairway to heaven"])
 
 stairway.sing_me_a_song()
+
+class Zooz:
+    def __init__(self, name):
+        self.name = name
+        self.animals = []
+       
+    
+    def add_animal(self):
+        for new in self.animals:
+            if new in self.animals:
+                continue
+            else:
+                self.animals.append(new)
+    
+    def get_animals(self):
+        print(self.animals)
+
+            
+
+
         
